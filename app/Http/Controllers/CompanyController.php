@@ -17,7 +17,7 @@ class CompanyController extends Controller
     public function index(Request $request)
     {
         $this->authorize('view-any', Company::class);
-
+        
         $search = $request->get('search', '');
         $role = auth()->user()->roles()->first()->id;
         $user_id = auth()->user()->id;
@@ -118,7 +118,7 @@ class CompanyController extends Controller
     public function destroy(Request $request, Company $company)
     {
         $this->authorize('delete', $company);
-
+        
         $company->delete();
 
         return redirect()

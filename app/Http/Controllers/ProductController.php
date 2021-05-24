@@ -18,13 +18,24 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $this->authorize('view-any', Product::class);
-
+        
         $search = $request->get('search', '');
-
-        $products = Product::search($search)
+        $role = auth()->user()->roles()->first()->id;
+        $user_id = auth()->user()->id;
+        if($role ==2){
+            $products = Product::search($search)
             ->latest()
             ->paginate(5);
-
+        }else{
+            $products = Product::join('packages','products.package_id','packages.id')
+            ->join('companies','packages.company_id','companies.id')
+            ->join('company_user','companies.id','company_user.company_id')
+            ->where('company_user.user_id','=', $user_id)
+            ->select('packages.*')
+            ->latest()
+            ->paginate(5);
+        }
+        
         return view('app.products.index', compact('products', 'search'));
     }
 

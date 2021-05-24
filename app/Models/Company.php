@@ -29,4 +29,9 @@ class Company extends Model
     {
         return $this->belongsToMany(User::class);
     }
+    
+    public function packageTypes()
+    {
+        return $this->hasMany(PackageType::class);
+    }
 }

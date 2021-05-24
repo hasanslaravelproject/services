@@ -37,8 +37,11 @@
                     <span>{{ optional($package->company)->name ?? '-' }}</span>
                 </div>
                 <div class="mb-4">
-                    <h5>@lang('crud.packages.inputs.type')</h5>
-                    <span>{{ $package->type ?? '-' }}</span>
+                    <h5>@lang('crud.packages.inputs.package_type_id')</h5>
+                    <span
+                        >{{ optional($package->packageType)->name ?? '-'
+                        }}</span
+                    >
                 </div>
             </div>
 

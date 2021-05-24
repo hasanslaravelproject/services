@@ -30,7 +30,7 @@ class PackageStoreRequest extends FormRequest
             'status' => ['required', 'max:255', 'string'],
             'description' => ['required', 'max:255', 'string'],
             'company_id' => ['nullable', 'exists:companies,id'],
-            'type' => ['nullable', 'max:255', 'string'],
+            'package_type_id' => ['nullable', 'exists:package_types,id'],
         ];
     }
 }

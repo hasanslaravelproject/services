@@ -18,7 +18,7 @@ class CreateCompanyUserTable extends Migration
             $table->unsignedBigInteger('company_id')->nullable();
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *

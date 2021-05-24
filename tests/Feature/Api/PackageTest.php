@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Package;
 
 use App\Models\Company;
+use App\Models\PackageType;
 
 use Tests\TestCase;
 use Laravel\Sanctum\Sanctum;
@@ -67,6 +68,7 @@ class PackageTest extends TestCase
         $package = Package::factory()->create();
 
         $company = Company::factory()->create();
+        $packageType = PackageType::factory()->create();
 
         $data = [
             'name' => $this->faker->name,
@@ -74,8 +76,8 @@ class PackageTest extends TestCase
             'validity' => $this->faker->dateTime,
             'status' => $this->faker->text(255),
             'description' => $this->faker->sentence(15),
-            'type' => $this->faker->word,
             'company_id' => $company->id,
+            'package_type_id' => $packageType->id,
         ];
 
         $response = $this->putJson(

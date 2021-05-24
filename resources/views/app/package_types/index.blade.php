@@ -5,7 +5,9 @@
     <div class="card">
         <div class="card-body">
             <div style="display: flex; justify-content: space-between;">
-                <h4 class="card-title">@lang('crud.packages.index_title')</h4>
+                <h4 class="card-title">
+                    @lang('crud.package_types.index_title')
+                </h4>
             </div>
 
             <div class="searchbar mt-4 mb-5">
@@ -34,9 +36,9 @@
                         </form>
                     </div>
                     <div class="col-md-6 text-right">
-                        @can('create', App\Models\Package::class)
+                        @can('create', App\Models\PackageType::class)
                         <a
-                            href="{{ route('packages.create') }}"
+                            href="{{ route('package-types.create') }}"
                             class="btn btn-primary"
                         >
                             <i class="icon ion-md-add"></i>
@@ -52,25 +54,10 @@
                     <thead>
                         <tr>
                             <th class="text-left">
-                                @lang('crud.packages.inputs.name')
-                            </th>
-                            <th class="text-right">
-                                @lang('crud.packages.inputs.price')
+                                @lang('crud.package_types.inputs.name')
                             </th>
                             <th class="text-left">
-                                @lang('crud.packages.inputs.validity')
-                            </th>
-                            <th class="text-left">
-                                @lang('crud.packages.inputs.status')
-                            </th>
-                            <th class="text-left">
-                                @lang('crud.packages.inputs.description')
-                            </th>
-                            <th class="text-left">
-                                @lang('crud.packages.inputs.company_id')
-                            </th>
-                            <th class="text-left">
-                                @lang('crud.packages.inputs.package_type_id')
+                                Company
                             </th>
                             <th class="text-center">
                                 @lang('crud.common.actions')
@@ -78,19 +65,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($packages as $package)
+                        @forelse($packageTypes as $packageType)
                         <tr>
-                            <td>{{ $package->name ?? '-' }}</td>
-                            <td>{{ $package->price ?? '-' }}</td>
-                            <td>{{ $package->validity ?? '-' }}</td>
-                            <td>{{ $package->status ?? '-' }}</td>
-                            <td>{{ $package->description ?? '-' }}</td>
+                            <td>{{ $packageType->name ?? '-' }}</td>
                             <td>
-                                {{ optional($package->company)->name ?? '-' }}
-                            </td>
-                            <td>
-                                {{ optional($package->packageType)->name ?? '-'
-                                }}
+                            @foreach($companies as $company)
+                            @if($company->id == $packageType->company_id)
+                            {{ $company->name }}
+                            @endif
+                            @endforeach
                             </td>
                             <td class="text-center" style="width: 134px;">
                                 <div
@@ -98,9 +81,9 @@
                                     aria-label="Row Actions"
                                     class="btn-group"
                                 >
-                                    @can('update', $package)
+                                    @can('update', $packageType)
                                     <a
-                                        href="{{ route('packages.edit', $package) }}"
+                                        href="{{ route('package-types.edit', $packageType) }}"
                                     >
                                         <button
                                             type="button"
@@ -109,9 +92,9 @@
                                             <i class="icon ion-md-create"></i>
                                         </button>
                                     </a>
-                                    @endcan @can('view', $package)
+                                    @endcan @can('view', $packageType)
                                     <a
-                                        href="{{ route('packages.show', $package) }}"
+                                        href="{{ route('package-types.show', $packageType) }}"
                                     >
                                         <button
                                             type="button"
@@ -120,9 +103,9 @@
                                             <i class="icon ion-md-eye"></i>
                                         </button>
                                     </a>
-                                    @endcan @can('delete', $package)
+                                    @endcan @can('delete', $packageType)
                                     <form
-                                        action="{{ route('packages.destroy', $package) }}"
+                                        action="{{ route('package-types.destroy', $packageType) }}"
                                         method="POST"
                                         onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')"
                                     >
@@ -140,7 +123,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="8">
+                            <td colspan="2">
                                 @lang('crud.common.no_items_found')
                             </td>
                         </tr>
@@ -148,7 +131,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="8">{!! $packages->render() !!}</td>
+                            <td colspan="2">{!! $packageTypes->render() !!}</td>
                         </tr>
                     </tfoot>
                 </table>

@@ -18,7 +18,7 @@ class Package extends Model
         'status',
         'description',
         'company_id',
-        'type',
+        'package_type_id',
     ];
 
     protected $searchableFields = ['*'];
@@ -35,6 +35,11 @@ class Package extends Model
     public function products()
     {
         return $this->hasMany(Product::class);
+    }
+
+    public function packageType()
+    {
+        return $this->belongsTo(PackageType::class);
     }
 
     public function users()

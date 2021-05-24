@@ -7,14 +7,15 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PackageController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductionController;
 use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\MeasureUnitController;
+use App\Http\Controllers\PackageTypeController;
 use App\Http\Controllers\RawProductStockController;
 use App\Http\Controllers\FinishedProductStockController;
 
@@ -55,8 +56,9 @@ Route::prefix('/')
         Route::resource('ingredients', IngredientController::class);
         Route::resource('companies', CompanyController::class);
         Route::resource('services', ServiceController::class);
-        Route::resource('packages', PackageController::class);
         Route::resource('categories', CategoryController::class);
         Route::resource('products', ProductController::class);
         Route::resource('orders', OrderController::class);
+        Route::resource('package-types', PackageTypeController::class);
+        Route::resource('packages', PackageController::class);
     });

@@ -18,6 +18,11 @@ class AddForeignsToPackagesTable extends Migration
                 ->foreign('company_id')
                 ->references('id')
                 ->on('companies');
+
+            $table
+                ->foreign('package_type_id')
+                ->references('id')
+                ->on('package_types');
         });
     }
 
@@ -30,6 +35,7 @@ class AddForeignsToPackagesTable extends Migration
     {
         Schema::table('packages', function (Blueprint $table) {
             $table->dropForeign(['company_id']);
+            $table->dropForeign(['package_type_id']);
         });
     }
 }

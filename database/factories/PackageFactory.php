@@ -28,8 +28,8 @@ class PackageFactory extends Factory
             'validity' => $this->faker->dateTime,
             'status' => $this->faker->text(255),
             'description' => $this->faker->sentence(15),
-            'type' => $this->faker->word,
             'company_id' => \App\Models\Company::factory(),
+            'package_type_id' => \App\Models\PackageType::factory(),
         ];
     }
 }

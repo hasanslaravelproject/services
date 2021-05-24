@@ -28,7 +28,7 @@
         </label>
     </x-inputs.group>
         
-
+    
 
     <x-inputs.group class="col-sm-12">
         <x-inputs.select name="service_id" label="Service">

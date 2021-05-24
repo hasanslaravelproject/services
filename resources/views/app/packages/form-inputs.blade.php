@@ -64,11 +64,12 @@
     </x-inputs.group>
 
     <x-inputs.group class="col-sm-12">
-        <x-inputs.text
-            name="type"
-            label="Type"
-            value="{{ old('type', ($editing ? $package->type : '')) }}"
-            maxlength="255"
-        ></x-inputs.text>
+        <x-inputs.select name="package_type_id" label="Package Type">
+            @php $selected = old('package_type_id', ($editing ? $package->package_type_id : '')) @endphp
+            <option disabled {{ empty($selected) ? 'selected' : '' }}>Please select the Package Type</option>
+            @foreach($packageTypes as $value => $label)
+            <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }} >{{ $label }}</option>
+            @endforeach
+        </x-inputs.select>
     </x-inputs.group>
 </div>

@@ -49,9 +49,6 @@
                             @can('view-any', App\Models\Service::class)
                             <a class="dropdown-item" href="{{ route('services.index') }}">Services</a>
                             @endcan
-                            @can('view-any', App\Models\Package::class)
-                            <a class="dropdown-item" href="{{ route('packages.index') }}">Packages</a>
-                            @endcan
                             @can('view-any', App\Models\Category::class)
                             <a class="dropdown-item" href="{{ route('categories.index') }}">Categories</a>
                             @endcan
@@ -60,6 +57,12 @@
                             @endcan
                             @can('view-any', App\Models\Order::class)
                             <a class="dropdown-item" href="{{ route('orders.index') }}">Orders</a>
+                            @endcan
+                            @can('view-any', App\Models\PackageType::class)
+                            <a class="dropdown-item" href="{{ route('package-types.index') }}">Package Types</a>
+                            @endcan
+                            @can('view-any', App\Models\Package::class)
+                            <a class="dropdown-item" href="{{ route('packages.index') }}">Packages</a>
                             @endcan
                         </div>
 

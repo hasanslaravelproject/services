@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Package;
 
 use App\Models\Company;
+use App\Models\PackageType;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -111,6 +112,7 @@ class PackageControllerTest extends TestCase
         $package = Package::factory()->create();
 
         $company = Company::factory()->create();
+        $packageType = PackageType::factory()->create();
 
         $data = [
             'name' => $this->faker->name,
@@ -118,8 +120,8 @@ class PackageControllerTest extends TestCase
             'validity' => $this->faker->dateTime,
             'status' => $this->faker->text(255),
             'description' => $this->faker->sentence(15),
-            'type' => $this->faker->word,
             'company_id' => $company->id,
+            'package_type_id' => $packageType->id,
         ];
 
         $response = $this->put(route('packages.update', $package), $data);

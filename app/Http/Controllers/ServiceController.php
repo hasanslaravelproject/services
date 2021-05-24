@@ -62,7 +62,7 @@ class ServiceController extends Controller
             ->route('services.edit', $service)
             ->withSuccess(__('crud.common.created'));
     }
-
+    
     /**
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Service $service

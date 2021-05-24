@@ -8,8 +8,8 @@ use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\CompanyController;
 use App\Http\Controllers\Api\ServiceController;
-use App\Http\Controllers\Api\PackageController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\PackageController;
 use App\Http\Controllers\Api\DeliveryController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\UserOrdersController;
@@ -17,22 +17,24 @@ use App\Http\Controllers\Api\ProductionController;
 use App\Http\Controllers\Api\IngredientController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\MeasureUnitController;
+use App\Http\Controllers\Api\PackageTypeController;
 use App\Http\Controllers\Api\UserPackagesController;
 use App\Http\Controllers\Api\UserProductsController;
 use App\Http\Controllers\Api\CompanyUsersController;
-use App\Http\Controllers\Api\PackageUsersController;
 use App\Http\Controllers\Api\ProductUsersController;
+use App\Http\Controllers\Api\PackageUsersController;
 use App\Http\Controllers\Api\UserCompaniesController;
 use App\Http\Controllers\Api\ProductOrdersController;
 use App\Http\Controllers\Api\RawProductStockController;
 use App\Http\Controllers\Api\CompanyPackagesController;
-use App\Http\Controllers\Api\PackageProductsController;
 use App\Http\Controllers\Api\OrderDeliveriesController;
+use App\Http\Controllers\Api\PackageProductsController;
 use App\Http\Controllers\Api\ServiceCompaniesController;
 use App\Http\Controllers\Api\CategoryProductsController;
 use App\Http\Controllers\Api\IngredientProductsController;
 use App\Http\Controllers\Api\ProductProductionsController;
 use App\Http\Controllers\Api\ProductIngredientsController;
+use App\Http\Controllers\Api\PackageTypePackagesController;
 use App\Http\Controllers\Api\FinishedProductStockController;
 use App\Http\Controllers\Api\ProductionDeliveriesController;
 use App\Http\Controllers\Api\MeasureUnitIngredientsController;
@@ -245,32 +247,6 @@ Route::name('api.')
             'store',
         ])->name('services.companies.store');
 
-        Route::apiResource('packages', PackageController::class);
-
-        // Package Products
-        Route::get('/packages/{package}/products', [
-            PackageProductsController::class,
-            'index',
-        ])->name('packages.products.index');
-        Route::post('/packages/{package}/products', [
-            PackageProductsController::class,
-            'store',
-        ])->name('packages.products.store');
-
-        // Package Users
-        Route::get('/packages/{package}/users', [
-            PackageUsersController::class,
-            'index',
-        ])->name('packages.users.index');
-        Route::post('/packages/{package}/users/{user}', [
-            PackageUsersController::class,
-            'store',
-        ])->name('packages.users.store');
-        Route::delete('/packages/{package}/users/{user}', [
-            PackageUsersController::class,
-            'destroy',
-        ])->name('packages.users.destroy');
-
         Route::apiResource('categories', CategoryController::class);
 
         // Category Products
@@ -344,4 +320,42 @@ Route::name('api.')
             OrderDeliveriesController::class,
             'store',
         ])->name('orders.deliveries.store');
+
+        Route::apiResource('package-types', PackageTypeController::class);
+
+        // PackageType Packages
+        Route::get('/package-types/{packageType}/packages', [
+            PackageTypePackagesController::class,
+            'index',
+        ])->name('package-types.packages.index');
+        Route::post('/package-types/{packageType}/packages', [
+            PackageTypePackagesController::class,
+            'store',
+        ])->name('package-types.packages.store');
+
+        Route::apiResource('packages', PackageController::class);
+
+        // Package Products
+        Route::get('/packages/{package}/products', [
+            PackageProductsController::class,
+            'index',
+        ])->name('packages.products.index');
+        Route::post('/packages/{package}/products', [
+            PackageProductsController::class,
+            'store',
+        ])->name('packages.products.store');
+
+        // Package Users
+        Route::get('/packages/{package}/users', [
+            PackageUsersController::class,
+            'index',
+        ])->name('packages.users.index');
+        Route::post('/packages/{package}/users/{user}', [
+            PackageUsersController::class,
+            'store',
+        ])->name('packages.users.store');
+        Route::delete('/packages/{package}/users/{user}', [
+            PackageUsersController::class,
+            'destroy',
+        ])->name('packages.users.destroy');
     });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Package;
 use App\Models\Company;
+use App\Models\PackageType;
 use Illuminate\Http\Request;
 use App\Http\Requests\PackageStoreRequest;
 use App\Http\Requests\PackageUpdateRequest;
@@ -19,10 +20,23 @@ class PackageController extends Controller
         $this->authorize('view-any', Package::class);
 
         $search = $request->get('search', '');
-
-        $packages = Package::search($search)
+        $role = auth()->user()->roles()->first()->id;
+        $user_id = auth()->user()->id;
+        if($role ==2){
+            $packages = Package::search($search)
             ->latest()
             ->paginate(5);
+        }else{
+            $packages = Package::join('companies','packages.company_id','companies.id')
+            ->join('company_user','companies.id','company_user.company_id')
+            ->where('company_user.user_id','=', $user_id)
+            ->select('packages.*')
+            ->latest()
+            ->paginate(5);
+        }
+
+
+        
 
         return view('app.packages.index', compact('packages', 'search'));
     }
@@ -35,9 +49,21 @@ class PackageController extends Controller
     {
         $this->authorize('create', Package::class);
 
-        $companies = Company::pluck('name', 'id');
+        //$companies = Company::pluck('name', 'id');
+        $user_id = auth()->user()->id;
+        
+        $companies = Company::join('company_user','companies.id','company_user.company_id')
+        ->where('company_user.user_id','=', $user_id)
+        ->pluck('companies.name', 'companies.id');
+        $packageTypes = PackageType::join('companies','package_types.company_id','companies.id')
+        ->join('company_user','companies.id','company_user.company_id')
+        ->where('company_user.user_id','=', $user_id)
+        ->pluck('package_types.name', 'package_types.id');
 
-        return view('app.packages.create', compact('companies'));
+        return view(
+            'app.packages.create',
+            compact('companies', 'packageTypes')
+        );
     }
 
     /**
@@ -79,8 +105,12 @@ class PackageController extends Controller
         $this->authorize('update', $package);
 
         $companies = Company::pluck('name', 'id');
+        $packageTypes = PackageType::pluck('name', 'id');
 
-        return view('app.packages.edit', compact('package', 'companies'));
+        return view(
+            'app.packages.edit',
+            compact('package', 'companies', 'packageTypes')
+        );
     }
 
     /**

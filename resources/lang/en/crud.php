@@ -152,24 +152,6 @@ return [
         ],
     ],
 
-    'packages' => [
-        'name' => 'Packages',
-        'index_title' => 'Packages List',
-        'new_title' => 'New Package',
-        'create_title' => 'Create Package',
-        'edit_title' => 'Edit Package',
-        'show_title' => 'Show Package',
-        'inputs' => [
-            'name' => 'Name',
-            'price' => 'Price',
-            'validity' => 'Validity',
-            'status' => 'Status',
-            'description' => 'Description',
-            'company_id' => 'Company',
-            'type' => 'Type',
-        ],
-    ],
-
     'categories' => [
         'name' => 'Categories',
         'index_title' => 'Categories List',
@@ -213,6 +195,36 @@ return [
             'status' => 'Status',
             'product_id' => 'Product',
             'user_id' => 'User',
+        ],
+    ],
+
+    'package_types' => [
+        'name' => 'Package Types',
+        'index_title' => 'PackageTypes List',
+        'new_title' => 'New Package type',
+        'create_title' => 'Create PackageType',
+        'edit_title' => 'Edit PackageType',
+        'show_title' => 'Show PackageType',
+        'inputs' => [
+            'name' => 'Name',
+        ],
+    ],
+
+    'packages' => [
+        'name' => 'Packages',
+        'index_title' => 'Packages List',
+        'new_title' => 'New Package',
+        'create_title' => 'Create Package',
+        'edit_title' => 'Edit Package',
+        'show_title' => 'Show Package',
+        'inputs' => [
+            'name' => 'Name',
+            'price' => 'Price',
+            'validity' => 'Validity',
+            'status' => 'Status',
+            'description' => 'Description',
+            'company_id' => 'Company',
+            'package_type_id' => 'Package Type',
         ],
     ],
 

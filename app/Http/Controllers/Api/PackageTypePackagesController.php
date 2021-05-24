@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Company;
+use App\Models\PackageType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PackageResource;
 use App\Http\Resources\PackageCollection;
 
-class CompanyPackagesController extends Controller
+class PackageTypePackagesController extends Controller
 {
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Company $company
+     * @param \App\Models\PackageType $packageType
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, Company $company)
+    public function index(Request $request, PackageType $packageType)
     {
-        $this->authorize('view', $company);
+        $this->authorize('view', $packageType);
 
         $search = $request->get('search', '');
 
-        $packages = $company
+        $packages = $packageType
             ->packages()
             ->search($search)
             ->latest()
@@ -32,10 +32,10 @@ class CompanyPackagesController extends Controller
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Company $company
+     * @param \App\Models\PackageType $packageType
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Company $company)
+    public function store(Request $request, PackageType $packageType)
     {
         $this->authorize('create', Package::class);
 
@@ -45,10 +45,10 @@ class CompanyPackagesController extends Controller
             'validity' => ['required', 'date', 'date'],
             'status' => ['required', 'max:255', 'string'],
             'description' => ['required', 'max:255', 'string'],
-            'package_type_id' => ['nullable', 'exists:package_types,id'],
+            'company_id' => ['nullable', 'exists:companies,id'],
         ]);
 
-        $package = $company->packages()->create($validated);
+        $package = $packageType->packages()->create($validated);
 
         return new PackageResource($package);
     }
