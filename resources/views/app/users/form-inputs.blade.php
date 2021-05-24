@@ -56,7 +56,7 @@
                     style="width: 100px; height: 100px;"
                 ></div>
             </template>
-
+            
             <div class="mt-2">
                 <input
                     type="file"
@@ -65,12 +65,12 @@
                     @change="fileChosen"
                 />
             </div>
-
+            
             @error('image') @include('components.inputs.partials.error')
             @enderror
         </div>
     </x-inputs.group>
-
+    
     <x-inputs.group class="col-sm-12">
         <!-- <x-inputs.text
             name="status"
@@ -86,7 +86,7 @@
             <input type="radio" id="status" name="status" value="0" @if(isset($user) && $user->status == 0) checked @elseif(!isset($user)) checked @endif/> Inactive
         </label>
     </x-inputs.group>
-
+    
     <x-inputs.group class="col-sm-12">
         <x-inputs.datetime
             name="validity"

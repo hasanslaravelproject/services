@@ -22,7 +22,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $this->authorize('view-any', User::class);
-
+        
         $search = $request->get('search', '');
         
         $users = User::search($search)
@@ -31,7 +31,7 @@ class UserController extends Controller
         
         return view('app.users.index', compact('users', 'search'));
     }
-
+    
     /**
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
