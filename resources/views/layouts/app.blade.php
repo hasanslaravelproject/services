@@ -47,7 +47,9 @@
     @stack('scripts')
 
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
-
+    <script src="{{asset('jquery/jquery.min.js')}}"> </script>
+    
+    @yield('js')
     @if (session()->has('success')) 
     <script>
         const notyf = new Notyf({dismissible: true})

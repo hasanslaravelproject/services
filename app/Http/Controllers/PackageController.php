@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Package;
 use App\Models\Company;
+use App\Models\Package;
+use Stripe\StripeClient;
 use App\Models\PackageType;
+use App\Models\UserPackage;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\PackageStoreRequest;
 use App\Http\Requests\PackageUpdateRequest;
 
@@ -130,7 +133,7 @@ class PackageController extends Controller
             ->route('packages.edit', $package)
             ->withSuccess(__('crud.common.saved'));
     }
-
+    
     /**
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Package $package
@@ -139,11 +142,59 @@ class PackageController extends Controller
     public function destroy(Request $request, Package $package)
     {
         $this->authorize('delete', $package);
-
+        
         $package->delete();
-
+        
         return redirect()
             ->route('packages.index')
             ->withSuccess(__('crud.common.removed'));
+    }
+    public function showPackage(){
+        $data['packages']=Package::orderBy('created_at','desc')->get();
+
+        return view('app.packages.show_package',$data);
+    }
+    public function checkout(Request $request){
+        
+        $stripeSettings=Setting::where('key','stripe_credentials')->first();
+        $data['stripe']=json_decode($stripeSettings->value);
+
+        $data['package']=Package::findOrFail($request->id);
+   
+        
+        return view('app.packages.checkout',$data);
+    }
+    public function buyPackage(Request $request){
+        
+        try{
+        $stripeSettings=Setting::where('key','stripe_credentials')->first();
+        if(!$stripeSettings){
+            return abort('404');
+        }
+        $dataSecretKey=json_decode($stripeSettings->value);
+        
+        $stripe = new \Stripe\StripeClient($dataSecretKey->stripe_secret_key);
+        $package=Package::where('id',$request->package_id)->first();
+        
+        $stripeResponse = $stripe->charges->create([
+            'amount' => (double)$package->price * 100,
+            'currency' => 'USD',
+            'source' => $request->stripeToken,
+            'description' => 'Nullable',
+        ]);
+       
+        
+        $userPackage= new UserPackage();
+        $userPackage->user_id= auth()->user()->id;
+        $userPackage->package_id=$package->id;
+        $userPackage->amount=$package->price;
+        
+        $userPackage->save();
+        
+        return redirect()->back();
+    } catch (\Exception $ex) {
+        dd($ex->getMessage());
+        return redirect()->back()->withErrors(['fail' => 'There was some problem , try again later']);
+    }
     }
 }

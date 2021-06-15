@@ -25,38 +25,11 @@
                             @can('view-any', App\Models\User::class)
                             <a class="dropdown-item" href="{{ route('users.index') }}">Users</a>
                             @endcan
-                            @can('view-any', App\Models\Delivery::class)
-                            <a class="dropdown-item" href="{{ route('deliveries.index') }}">Deliveries</a>
-                            @endcan
-                            @can('view-any', App\Models\MeasureUnit::class)
-                            <a class="dropdown-item" href="{{ route('measure-units.index') }}">Measure Units</a>
-                            @endcan
-                            @can('view-any', App\Models\FinishedProductStock::class)
-                            <a class="dropdown-item" href="{{ route('finished-product-stocks.index') }}">Finished Product Stocks</a>
-                            @endcan
-                            @can('view-any', App\Models\Production::class)
-                            <a class="dropdown-item" href="{{ route('productions.index') }}">Productions</a>
-                            @endcan
-                            @can('view-any', App\Models\RawProductStock::class)
-                            <a class="dropdown-item" href="{{ route('raw-product-stocks.index') }}">Raw Product Stocks</a>
-                            @endcan
-                            @can('view-any', App\Models\Ingredient::class)
-                            <a class="dropdown-item" href="{{ route('ingredients.index') }}">Ingredients</a>
-                            @endcan
-                            @can('view-any', App\Models\Company::class)
-                            <a class="dropdown-item" href="{{ route('companies.index') }}">Companies</a>
-                            @endcan
                             @can('view-any', App\Models\Service::class)
                             <a class="dropdown-item" href="{{ route('services.index') }}">Services</a>
                             @endcan
-                            @can('view-any', App\Models\Category::class)
-                            <a class="dropdown-item" href="{{ route('categories.index') }}">Categories</a>
-                            @endcan
-                            @can('view-any', App\Models\Product::class)
-                            <a class="dropdown-item" href="{{ route('products.index') }}">Products</a>
-                            @endcan
-                            @can('view-any', App\Models\Order::class)
-                            <a class="dropdown-item" href="{{ route('orders.index') }}">Orders</a>
+                            @can('view-any', App\Models\Company::class)
+                            <a class="dropdown-item" href="{{ route('companies.index') }}">Companies</a>
                             @endcan
                             @can('view-any', App\Models\PackageType::class)
                             <a class="dropdown-item" href="{{ route('package-types.index') }}">Package Types</a>
@@ -64,6 +37,34 @@
                             @can('view-any', App\Models\Package::class)
                             <a class="dropdown-item" href="{{ route('packages.index') }}">Packages</a>
                             @endcan
+                            @can('view-any', App\Models\Category::class)
+                            <a class="dropdown-item" href="{{ route('categories.index') }}">Categories</a>
+                            @endcan
+                            @can('view-any', App\Models\Product::class)
+                            <a class="dropdown-item" href="{{ route('products.index') }}">Products</a>
+                            @endcan
+                            @can('view-any', App\Models\MeasureUnit::class)
+                            <a class="dropdown-item" href="{{ route('measure-units.index') }}">Measure Units</a>
+                            @endcan
+                            @can('view-any', App\Models\Ingredient::class)
+                            <a class="dropdown-item" href="{{ route('ingredients.index') }}">Ingredients</a>
+                            @endcan
+                            @can('view-any', App\Models\RawProductStock::class)
+                            <a class="dropdown-item" href="{{ route('raw-product-stocks.index') }}">Raw Product Stocks</a>
+                            @endcan
+                            @can('view-any', App\Models\Production::class)
+                            <a class="dropdown-item" href="{{ route('productions.index') }}">Productions</a>
+                            @endcan
+                            @can('view-any', App\Models\FinishedProductStock::class)
+                            <a class="dropdown-item" href="{{ route('finished-product-stocks.index') }}">Finished Product Stocks</a>
+                            @endcan
+                            @can('view-any', App\Models\Order::class)
+                            <a class="dropdown-item" href="{{ route('orders.index') }}">Orders</a>
+                            @endcan
+                            @can('view-any', App\Models\Delivery::class)
+                            <a class="dropdown-item" href="{{ route('deliveries.index') }}">Deliveries</a>
+                            @endcan
+                            
                         </div>
 
                     </li>

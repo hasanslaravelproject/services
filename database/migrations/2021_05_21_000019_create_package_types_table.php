@@ -16,7 +16,7 @@ class CreatePackageTypesTable extends Migration
         Schema::create('package_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('company_id')->nullable();
             $table->foreign('company_id')
                 ->references('id')
                 ->on('companies');

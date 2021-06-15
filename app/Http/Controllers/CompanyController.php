@@ -56,13 +56,13 @@ class CompanyController extends Controller
     public function store(CompanyStoreRequest $request)
     {
         $this->authorize('create', Company::class);
-
+        
         $validated = $request->validated();
 
         $company = Company::create($validated);
 
         return redirect()
-            ->route('companies.edit', $company)
+            ->route('companies.index', $company)
             ->withSuccess(__('crud.common.created'));
     }
 
